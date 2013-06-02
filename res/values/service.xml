@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <string name="bluetooth_service_id">8e3c57b8-bc98-42cf-8755-d411232688ea</string>
+    <string name="bluetooth_service_name">HomeStreamer</string>
+
+</resources>

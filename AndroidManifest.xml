@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.twuni.homestreamer" android:versionCode="1" android:versionName="1.0">
+
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17"/>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    
+    <application android:allowBackup="false" android:icon="@drawable/ic_client_launcher" android:label="@string/app_name" android:theme="@style/Theme.HomeStreamer">
+
+        <activity android:name=".activity.AudioPlayerActivity" android:label="@string/app_name"/>
+
+        <activity android:name=".activity.BluetoothClientActivity" android:label="@string/app_client" android:icon="@drawable/ic_client_launcher">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".activity.BluetoothServerActivity" android:label="@string/app_server" android:icon="@drawable/ic_server_launcher">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>

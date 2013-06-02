@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <string name="sample_device_name">Android Device</string>
+    <string name="sample_device_address">00:11:22:33:44:55</string>
+
+</resources>

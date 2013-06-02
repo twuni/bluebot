@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.twuni.homestreamer.view.DeviceView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.HomeStreamer.Layout.Linear.Vertical">
+
+    <TextView
+        android:id="@+id/device_name"
+        style="@style/Widget.HomeStreamer.TextView.Title"
+        android:text="@string/sample_device_name"/>
+
+    <TextView
+        android:id="@+id/device_address"
+        style="@style/Widget.HomeStreamer.TextView"
+        android:text="@string/sample_device_address"/>
+
+</org.twuni.homestreamer.view.DeviceView>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <style name="Widget"/>
+
+    <style name="Widget.HomeStreamer"/>
+
+    <style name="Widget.HomeStreamer.Layout">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+
+    <style name="Widget.HomeStreamer.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/spacing_small</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+    </style>
+    
+    <style name="Widget.HomeStreamer.TextView.Title">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_large</item>
+    </style>
+
+    <style name="Widget.HomeStreamer.Layout.Linear">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/spacing_small</item>
+    </style>
+
+    <style name="Widget.HomeStreamer.Layout.Linear.Horizontal">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="Widget.HomeStreamer.Layout.Linear.Vertical">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Widget.HomeStreamer.Layout.Relative"/>
+
+</resources>
