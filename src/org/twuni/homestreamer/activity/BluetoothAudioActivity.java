@@ -6,19 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.twuni.homestreamer.R;
-import org.twuni.homestreamer.io.BluetoothClientThread.OnConnectedListener;
-import org.twuni.homestreamer.io.BluetoothUtils;
-import org.twuni.homestreamer.model.BluetoothDevice;
+import org.twuni.homestreamer.bluetooth.BluetoothDevice;
+import org.twuni.homestreamer.bluetooth.BluetoothUtils;
+import org.twuni.homestreamer.bluetooth.listener.OnConnectedListener;
 import org.twuni.homestreamer.view.adapter.ListAdapter;
 
 import android.bluetooth.BluetoothSocket;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class BluetoothClientActivity extends Activity {
+public class BluetoothAudioActivity extends AudioPlayerActivity {
 
 	protected final List<BluetoothDevice> devices = new ArrayList<BluetoothDevice>();
 	protected ListAdapter<BluetoothDevice> adapter;
@@ -37,9 +38,9 @@ public class BluetoothClientActivity extends Activity {
 
 		super.onCreate( savedInstanceState );
 
-		adapter = new ListAdapter<BluetoothDevice>( R.layout.device, devices );
+		ListView view = (ListView) findViewById( R.id.content );
 
-		ListView view = new ListView( this );
+		adapter = new ListAdapter<BluetoothDevice>( R.layout.device, devices );
 
 		view.setAdapter( adapter );
 
@@ -56,6 +57,7 @@ public class BluetoothClientActivity extends Activity {
 
 						@Override
 						public void onConnected( BluetoothSocket socket ) {
+							report( getString( R.string.connected_to, socket.getRemoteDevice().getName() ) );
 							serverThread.interrupt();
 							try {
 								DataOutputStream dos = new DataOutputStream( socket.getOutputStream() );
@@ -78,8 +80,12 @@ public class BluetoothClientActivity extends Activity {
 
 		} );
 
-		setContentView( view );
+	}
 
+	@Override
+	protected void onDataReceived( String data ) {
+		super.onDataReceived( data );
+		play( Uri.parse( data ) );
 	}
 
 	@Override

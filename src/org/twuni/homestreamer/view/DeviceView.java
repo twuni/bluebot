@@ -1,7 +1,7 @@
 package org.twuni.homestreamer.view;
 
 import org.twuni.homestreamer.R;
-import org.twuni.homestreamer.model.BluetoothDevice;
+import org.twuni.homestreamer.bluetooth.BluetoothDevice;
 
 import android.content.Context;
 import android.util.AttributeSet;

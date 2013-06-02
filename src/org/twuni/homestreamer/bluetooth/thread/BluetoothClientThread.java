@@ -1,20 +1,16 @@
-package org.twuni.homestreamer.io;
+package org.twuni.homestreamer.bluetooth.thread;
 
 import java.io.IOException;
 import java.util.UUID;
+
+import org.twuni.homestreamer.bluetooth.BluetoothUtils;
+import org.twuni.homestreamer.bluetooth.listener.OnConnectedListener;
+import org.twuni.homestreamer.io.IOUtils;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 
 public class BluetoothClientThread extends Thread {
-
-	public static interface OnConnectedListener {
-
-		public void onConnected( BluetoothSocket socket );
-
-		public void onError( Throwable throwable );
-
-	}
 
 	private BluetoothSocket socket;
 	private final OnConnectedListener onConnectedListener;

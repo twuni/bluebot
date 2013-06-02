@@ -12,13 +12,49 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.Bundle;
 
-public class AudioPlayerActivity extends Activity implements OnPreparedListener {
+abstract class AudioPlayerActivity extends Activity implements OnPreparedListener {
 
 	private AudioView audio;
 	private int currentPosition;
 	private Uri nowPlaying;
 
-	private void play( Uri uri ) {
+	protected void play( final Uri uri ) {
+
+		if( uri == null ) {
+			return;
+		}
+
+		runOnUiThread( new Runnable() {
+
+			@Override
+			public void run() {
+
+				destroyAudio();
+
+				audio = new AudioView( getActivity() );
+				audio.setAnchorView( findViewById( R.id.content ) );
+				audio.addOnPreparedListener( AudioPlayerActivity.this );
+
+				try {
+					audio.start( getActivity(), uri );
+					nowPlaying = uri;
+				} catch( IOException exception ) {
+					report( exception );
+				}
+
+			}
+
+		} );
+
+	}
+
+	private void handleIntent( Intent intent ) {
+
+		if( intent == null ) {
+			return;
+		}
+
+		Uri uri = intent.getData();
 
 		if( uri == null ) {
 			return;
@@ -28,29 +64,8 @@ public class AudioPlayerActivity extends Activity implements OnPreparedListener 
 			return;
 		}
 
-		if( audio != null ) {
-			audio.finish();
-			audio = null;
-		}
+		play( uri );
 
-		audio = new AudioView( this );
-		audio.setAnchorView( findViewById( R.id.content ) );
-		audio.addOnPreparedListener( this );
-
-		try {
-			audio.start( this, uri );
-			nowPlaying = uri;
-		} catch( IOException exception ) {
-			report( exception );
-		}
-
-	}
-
-	private void handleIntent( Intent intent ) {
-		if( intent == null ) {
-			return;
-		}
-		play( intent.getData() );
 	}
 
 	@Override
@@ -62,16 +77,29 @@ public class AudioPlayerActivity extends Activity implements OnPreparedListener 
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ) {
+
 		super.onCreate( savedInstanceState );
 		setContentView( R.layout.activity );
-		handleIntent( getIntent() );
+
+		if( nowPlaying != null ) {
+			play( nowPlaying );
+		} else {
+			handleIntent( getIntent() );
+		}
+
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		audio.finish();
-		audio = null;
+		destroyAudio();
+	}
+
+	private void destroyAudio() {
+		if( audio != null ) {
+			audio.finish();
+			audio = null;
+		}
 	}
 
 	@Override
@@ -80,12 +108,14 @@ public class AudioPlayerActivity extends Activity implements OnPreparedListener 
 		if( audio != null ) {
 			currentPosition = audio.getCurrentPosition();
 		}
+		Extra.URI.put( outState, nowPlaying );
 		Extra.POSITION.put( outState, currentPosition );
 	}
 
 	@Override
 	protected void onRestoreInstanceState( Bundle savedInstanceState ) {
 		super.onRestoreInstanceState( savedInstanceState );
+		nowPlaying = Extra.URI.getUri( savedInstanceState );
 		currentPosition = Extra.POSITION.getInt( savedInstanceState );
 	}
 

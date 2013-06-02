@@ -1,4 +1,4 @@
-package org.twuni.homestreamer.receiver;
+package org.twuni.homestreamer.bluetooth.receiver;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;

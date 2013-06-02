@@ -9,9 +9,7 @@
     
     <application android:allowBackup="false" android:icon="@drawable/ic_client_launcher" android:label="@string/app_name" android:theme="@style/Theme.HomeStreamer">
 
-        <activity android:name=".activity.AudioPlayerActivity" android:label="@string/app_name"/>
-
-        <activity android:name=".activity.BluetoothClientActivity" android:label="@string/app_client" android:icon="@drawable/ic_client_launcher">
+        <activity android:name=".activity.BluetoothAudioActivity" android:label="@string/app_name" android:icon="@drawable/ic_client_launcher">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <action android:name="android.intent.action.MAIN"/>

@@ -4,5 +4,7 @@
     <string name="app_name">HomeStream</string>
     <string name="app_server">HomeStream Server</string>
     <string name="app_client">HomeStream Client</string>
+    <string name="broadcast">Broadcast</string>
+    <string name="connected_to">Connected to %s</string>
 
 </resources>

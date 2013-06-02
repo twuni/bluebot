@@ -1,4 +1,4 @@
-package org.twuni.homestreamer.model;
+package org.twuni.homestreamer.bluetooth;
 
 public class BluetoothDevice {
 

@@ -1,11 +1,13 @@
-package org.twuni.homestreamer.io;
+package org.twuni.homestreamer.bluetooth;
 
 import java.io.IOException;
 import java.util.Set;
 import java.util.UUID;
 
 import org.twuni.homestreamer.R;
-import org.twuni.homestreamer.io.BluetoothClientThread.OnConnectedListener;
+import org.twuni.homestreamer.bluetooth.listener.OnConnectedListener;
+import org.twuni.homestreamer.bluetooth.thread.BluetoothClientThread;
+import org.twuni.homestreamer.bluetooth.thread.BluetoothServerThread;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -76,7 +78,7 @@ public class BluetoothUtils {
 		activity.startActivityForResult( createMakeDiscoverableIntent( seconds ), requestID );
 	}
 
-	public static void discover() {
+	public static void startDiscovery() {
 		BluetoothAdapter adapter = getAdapter();
 		if( isBluetoothEnabled( adapter ) ) {
 			adapter.startDiscovery();
@@ -94,7 +96,7 @@ public class BluetoothUtils {
 		}
 	}
 
-	public static Intent createMakeDiscoverableIntent( int seconds ) {
+	private static Intent createMakeDiscoverableIntent( int seconds ) {
 		Intent intent = new Intent( BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE );
 		intent.putExtra( BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, seconds );
 		return intent;
