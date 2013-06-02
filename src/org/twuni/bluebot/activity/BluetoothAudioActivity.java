@@ -61,9 +61,9 @@ public class BluetoothAudioActivity extends AudioPlayerActivity {
 							report( getString( R.string.connected_to, socket.getRemoteDevice().getName() ) );
 							serverThread.interrupt();
 							try {
-								DataOutputStream dos = new DataOutputStream( socket.getOutputStream() );
-								dos.writeUTF( Action.PLAY.name() );
-								dos.writeUTF( "http://twuni.org/casino.mp3" );
+								DataOutputStream out = new DataOutputStream( socket.getOutputStream() );
+								out.writeUTF( Action.PLAY.name() );
+								out.writeUTF( "http://twuni.org/casino.mp3" );
 							} catch( IOException exception ) {
 								report( exception );
 							}
