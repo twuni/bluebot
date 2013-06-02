@@ -8,7 +8,8 @@ public enum Action {
 	ENQUEUE( 1 ),
 	DEQUEUE( 1 ),
 	SHUFFLE( 1 ),
-	REPEAT( 1 );
+	REPEAT( 1 ),
+	STREAM( 4 );
 
 	private final int argumentCount;
 

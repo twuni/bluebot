@@ -13,6 +13,10 @@ import org.twuni.bluebot.bluetooth.listener.OnConnectedListener;
 import org.twuni.bluebot.view.adapter.ListAdapter;
 
 import android.bluetooth.BluetoothSocket;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
+import android.media.AudioTrack;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +29,7 @@ public class BluetoothAudioActivity extends AudioPlayerActivity {
 	protected final List<BluetoothDevice> devices = new ArrayList<BluetoothDevice>();
 	protected ListAdapter<BluetoothDevice> adapter;
 	protected Thread clientThread;
+	protected boolean recording;
 
 	@Override
 	protected void onStop() {
@@ -61,9 +66,32 @@ public class BluetoothAudioActivity extends AudioPlayerActivity {
 							report( getString( R.string.connected_to, socket.getRemoteDevice().getName() ) );
 							serverThread.interrupt();
 							try {
+
 								DataOutputStream out = new DataOutputStream( socket.getOutputStream() );
-								out.writeUTF( Action.PLAY.name() );
-								out.writeUTF( "http://twuni.org/casino.mp3" );
+
+								int sampleRate = 44100;
+								int channels = AudioFormat.CHANNEL_OUT_STEREO;
+								int encoding = AudioFormat.ENCODING_PCM_16BIT;
+								int bufferSize = AudioTrack.getMinBufferSize( sampleRate, channels, encoding );
+								byte [] buffer = new byte [bufferSize];
+
+								AudioRecord recorder = new AudioRecord( MediaRecorder.AudioSource.MIC, sampleRate, channels, encoding, bufferSize );
+
+								Action action = Action.STREAM;
+
+								out.writeUTF( action.name() );
+								out.writeInt( sampleRate );
+								out.writeInt( channels );
+								out.writeInt( encoding );
+
+								recorder.startRecording();
+								recording = true;
+								for( int size = recorder.read( buffer, 0, buffer.length ); recording && size > 0; size = recorder.read( buffer, 0, size ) ) {
+									out.write( buffer, 0, size );
+								}
+								recorder.stop();
+								recorder.release();
+
 							} catch( IOException exception ) {
 								report( exception );
 							}
@@ -110,6 +138,12 @@ public class BluetoothAudioActivity extends AudioPlayerActivity {
 			devices.add( device );
 			adapter.notifyDataSetChanged();
 		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onDestroy();
+		recording = false;
 	}
 
 }

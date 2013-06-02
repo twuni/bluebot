@@ -14,6 +14,8 @@ import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.AudioManager;
+import android.media.AudioTrack;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -25,6 +27,8 @@ abstract class Activity extends android.app.Activity {
 
 	protected Thread serverThread;
 	private BroadcastReceiver deviceReceiver;
+
+	protected boolean listening;
 
 	protected void listenForBluetoothConnections() {
 
@@ -45,20 +49,48 @@ abstract class Activity extends android.app.Activity {
 			serverThread = BluetoothUtils.listen( this, new OnConnectedListener() {
 
 				@Override
-				public void onConnected( BluetoothSocket socket ) {
-					try {
-						DataInputStream in = new DataInputStream( socket.getInputStream() );
-						while( true ) {
-							Action action = Action.valueOf( in.readUTF() );
-							Object [] args = new Object [action.getArgumentCount()];
-							for( int i = 0; i < args.length; i++ ) {
-								args[i] = in.readUTF();
+				public void onConnected( final BluetoothSocket socket ) {
+
+					serverThread = new Thread() {
+
+						@Override
+						public void run() {
+							try {
+								DataInputStream in = new DataInputStream( socket.getInputStream() );
+								while( true ) {
+									Action action = Action.valueOf( in.readUTF() );
+									switch( action ) {
+										case STREAM:
+											int sampleRate = in.readInt();
+											int channels = in.readInt();
+											int encoding = in.readInt();
+											int bufferSize = AudioTrack.getMinBufferSize( sampleRate, channels, encoding );
+											AudioTrack out = new AudioTrack( AudioManager.STREAM_MUSIC, sampleRate, channels, encoding, bufferSize, AudioTrack.MODE_STREAM );
+											byte [] buffer = new byte [bufferSize];
+											out.play();
+											listening = true;
+											for( int size = in.read( buffer ); listening && size > 0; size = in.read( buffer, 0, size ) ) {
+												out.write( buffer, 0, size );
+											}
+											out.stop();
+											out.release();
+											break;
+										default:
+											Object [] args = new Object [action.getArgumentCount()];
+											for( int i = 0; i < args.length; i++ ) {
+												args[i] = in.readUTF();
+											}
+											onActionReceived( action, args );
+									}
+								}
+							} catch( IOException exception ) {
+								report( exception );
 							}
-							onActionReceived( action, args );
 						}
-					} catch( IOException exception ) {
-						report( exception );
-					}
+					};
+
+					serverThread.start();
+
 				}
 
 				@Override
@@ -128,6 +160,12 @@ abstract class Activity extends android.app.Activity {
 
 	protected Activity getActivity() {
 		return this;
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		listening = false;
 	}
 
 	@Override
