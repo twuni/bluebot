@@ -80,7 +80,7 @@ public class AudioView extends MediaPlayer implements OnPreparedListener, OnTouc
 		controller.setMediaPlayer( this );
 		view.setOnTouchListener( this );
 	}
-
+	
 	@TargetApi( Build.VERSION_CODES.ICE_CREAM_SANDWICH )
 	public void start( Context context, Uri uri, Map<String, String> headers ) throws IOException {
 		setDataSource( context, uri, headers );

@@ -3,11 +3,12 @@ package org.twuni.bluebot.activity;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+import org.twuni.bluebot.Action;
+import org.twuni.bluebot.R;
 import org.twuni.bluebot.bluetooth.BluetoothDevice;
 import org.twuni.bluebot.bluetooth.BluetoothUtils;
 import org.twuni.bluebot.bluetooth.listener.OnConnectedListener;
 import org.twuni.bluebot.bluetooth.receiver.BluetoothDeviceReceiver;
-import org.twuni.bluebot.R;
 
 import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
@@ -46,10 +47,14 @@ abstract class Activity extends android.app.Activity {
 				@Override
 				public void onConnected( BluetoothSocket socket ) {
 					try {
-						DataInputStream dis = new DataInputStream( socket.getInputStream() );
+						DataInputStream in = new DataInputStream( socket.getInputStream() );
 						while( true ) {
-							String next = dis.readUTF();
-							onDataReceived( next );
+							Action action = Action.valueOf( in.readUTF() );
+							Object [] args = new Object [action.getArgumentCount()];
+							for( int i = 0; i < args.length; i++ ) {
+								args[i] = in.readUTF();
+							}
+							onActionReceived( action, args );
 						}
 					} catch( IOException exception ) {
 						report( exception );
@@ -69,10 +74,7 @@ abstract class Activity extends android.app.Activity {
 
 	}
 
-	/**
-	 * @param data
-	 */
-	protected void onDataReceived( String data ) {
+	protected void onActionReceived( Action action, Object... args ) {
 		// By default, do nothing.
 	}
 

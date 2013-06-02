@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.twuni.bluebot.Action;
+import org.twuni.bluebot.R;
 import org.twuni.bluebot.bluetooth.BluetoothDevice;
 import org.twuni.bluebot.bluetooth.BluetoothUtils;
 import org.twuni.bluebot.bluetooth.listener.OnConnectedListener;
 import org.twuni.bluebot.view.adapter.ListAdapter;
-import org.twuni.bluebot.R;
 
 import android.bluetooth.BluetoothSocket;
 import android.net.Uri;
@@ -61,6 +62,7 @@ public class BluetoothAudioActivity extends AudioPlayerActivity {
 							serverThread.interrupt();
 							try {
 								DataOutputStream dos = new DataOutputStream( socket.getOutputStream() );
+								dos.writeUTF( Action.PLAY.name() );
 								dos.writeUTF( "http://twuni.org/casino.mp3" );
 							} catch( IOException exception ) {
 								report( exception );
@@ -83,9 +85,23 @@ public class BluetoothAudioActivity extends AudioPlayerActivity {
 	}
 
 	@Override
-	protected void onDataReceived( String data ) {
-		super.onDataReceived( data );
-		play( Uri.parse( data ) );
+	protected void onActionReceived( Action action, Object... args ) {
+		super.onActionReceived( action, args );
+		switch( action ) {
+			case PLAY:
+				String uri = (String) args[0];
+				play( Uri.parse( uri ) );
+				break;
+			case PAUSE:
+				audio.pause();
+				break;
+			case STOP:
+				audio.stop();
+				break;
+			default:
+				// Nothing to do.
+				break;
+		}
 	}
 
 	@Override

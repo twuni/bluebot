@@ -3,8 +3,8 @@ package org.twuni.bluebot.activity;
 import java.io.IOException;
 
 import org.twuni.bluebot.Extra;
-import org.twuni.bluebot.view.AudioView;
 import org.twuni.bluebot.R;
+import org.twuni.bluebot.view.AudioView;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -14,13 +14,17 @@ import android.os.Bundle;
 
 abstract class AudioPlayerActivity extends Activity implements OnPreparedListener {
 
-	private AudioView audio;
+	protected AudioView audio;
 	private int currentPosition;
 	private Uri nowPlaying;
 
 	protected void play( final Uri uri ) {
 
 		if( uri == null ) {
+			return;
+		}
+
+		if( audio != null && audio.isPlaying() && uri == nowPlaying ) {
 			return;
 		}
 
