@@ -7,9 +7,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     
-    <application android:allowBackup="false" android:icon="@drawable/ic_client_launcher" android:label="@string/app_name" android:theme="@style/Theme.Bluebot">
+    <application android:allowBackup="false" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:theme="@style/Theme.Bluebot">
 
-        <activity android:name=".activity.BluetoothAudioActivity" android:label="@string/app_name" android:icon="@drawable/ic_client_launcher">
+        <activity android:name=".activity.BluetoothAudioActivity" android:label="@string/app_name" android:icon="@drawable/ic_launcher">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <action android:name="android.intent.action.MAIN"/>
