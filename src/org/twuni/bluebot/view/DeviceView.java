@@ -1,7 +1,7 @@
-package org.twuni.homestreamer.view;
+package org.twuni.bluebot.view;
 
-import org.twuni.homestreamer.R;
-import org.twuni.homestreamer.bluetooth.BluetoothDevice;
+import org.twuni.bluebot.bluetooth.BluetoothDevice;
+import org.twuni.bluebot.R;
 
 import android.content.Context;
 import android.util.AttributeSet;

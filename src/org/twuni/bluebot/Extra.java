@@ -1,4 +1,4 @@
-package org.twuni.homestreamer;
+package org.twuni.bluebot;
 
 import android.net.Uri;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package org.twuni.homestreamer.view;
+package org.twuni.bluebot.view;
 
 import java.io.FileDescriptor;
 import java.io.IOException;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.twuni.homestreamer" android:versionCode="1" android:versionName="1.0">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.twuni.bluebot" android:versionCode="1" android:versionName="1.0">
 
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17"/>
 
@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     
-    <application android:allowBackup="false" android:icon="@drawable/ic_client_launcher" android:label="@string/app_name" android:theme="@style/Theme.HomeStreamer">
+    <application android:allowBackup="false" android:icon="@drawable/ic_client_launcher" android:label="@string/app_name" android:theme="@style/Theme.Bluebot">
 
         <activity android:name=".activity.BluetoothAudioActivity" android:label="@string/app_name" android:icon="@drawable/ic_client_launcher">
             <intent-filter>

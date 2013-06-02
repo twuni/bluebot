@@ -1,4 +1,4 @@
-package org.twuni.homestreamer.bluetooth.listener;
+package org.twuni.bluebot.bluetooth.listener;
 
 import android.bluetooth.BluetoothSocket;
 

@@ -1,11 +1,11 @@
-package org.twuni.homestreamer.bluetooth.thread;
+package org.twuni.bluebot.bluetooth.thread;
 
 import java.io.IOException;
 import java.util.UUID;
 
-import org.twuni.homestreamer.bluetooth.BluetoothUtils;
-import org.twuni.homestreamer.bluetooth.listener.OnConnectedListener;
-import org.twuni.homestreamer.io.IOUtils;
+import org.twuni.bluebot.bluetooth.BluetoothUtils;
+import org.twuni.bluebot.bluetooth.listener.OnConnectedListener;
+import org.twuni.bluebot.io.IOUtils;
 
 
 import android.bluetooth.BluetoothAdapter;

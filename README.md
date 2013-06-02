@@ -1,6 +1,6 @@
-# Android Remote
+# Bluebot
 
-Android Remote is a Bluetooth remote control for your Android devices.
+Bluebot is a Bluetooth remote control for your Android devices.
 
 ## License
 

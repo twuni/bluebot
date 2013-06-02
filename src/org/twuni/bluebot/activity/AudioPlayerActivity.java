@@ -1,10 +1,10 @@
-package org.twuni.homestreamer.activity;
+package org.twuni.bluebot.activity;
 
 import java.io.IOException;
 
-import org.twuni.homestreamer.Extra;
-import org.twuni.homestreamer.R;
-import org.twuni.homestreamer.view.AudioView;
+import org.twuni.bluebot.Extra;
+import org.twuni.bluebot.view.AudioView;
+import org.twuni.bluebot.R;
 
 import android.content.Intent;
 import android.media.MediaPlayer;

@@ -1,4 +1,4 @@
-package org.twuni.homestreamer.io;
+package org.twuni.bluebot.io;
 
 import java.io.Closeable;
 import java.io.Flushable;

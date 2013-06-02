@@ -1,4 +1,4 @@
-package org.twuni.homestreamer.view.adapter;
+package org.twuni.bluebot.view.adapter;
 
 import java.util.List;
 

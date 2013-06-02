@@ -1,15 +1,15 @@
-package org.twuni.homestreamer.activity;
+package org.twuni.bluebot.activity;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.twuni.homestreamer.R;
-import org.twuni.homestreamer.bluetooth.BluetoothDevice;
-import org.twuni.homestreamer.bluetooth.BluetoothUtils;
-import org.twuni.homestreamer.bluetooth.listener.OnConnectedListener;
-import org.twuni.homestreamer.view.adapter.ListAdapter;
+import org.twuni.bluebot.bluetooth.BluetoothDevice;
+import org.twuni.bluebot.bluetooth.BluetoothUtils;
+import org.twuni.bluebot.bluetooth.listener.OnConnectedListener;
+import org.twuni.bluebot.view.adapter.ListAdapter;
+import org.twuni.bluebot.R;
 
 import android.bluetooth.BluetoothSocket;
 import android.net.Uri;

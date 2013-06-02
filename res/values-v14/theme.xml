@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
-    <style name="HomeStreamer.Theme" parent="android:Theme.Holo.Light.DarkActionBar"/>
+    <style name="Bluebot.Theme" parent="android:Theme.Holo.Light.DarkActionBar"/>
 
 </resources>
