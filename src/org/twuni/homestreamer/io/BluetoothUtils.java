@@ -35,12 +35,16 @@ public class BluetoothUtils {
 		return adapter != null && adapter.isEnabled();
 	}
 
-	public static void connect( Context context, BluetoothDevice device, OnConnectedListener onConnected ) throws IOException {
-		new BluetoothClientThread( getServiceID( context ), device, onConnected ).start();
+	public static Thread connect( Context context, BluetoothDevice device, OnConnectedListener onConnected ) throws IOException {
+		Thread thread = new BluetoothClientThread( getServiceID( context ), device, onConnected );
+		thread.start();
+		return thread;
 	}
 
-	public static void listen( Context context, OnConnectedListener onConnected ) throws IOException {
-		new BluetoothServerThread( getServiceName( context ), getServiceID( context ), onConnected ).start();
+	public static Thread listen( Context context, OnConnectedListener onConnected ) throws IOException {
+		Thread thread = new BluetoothServerThread( getServiceName( context ), getServiceID( context ), onConnected );
+		thread.start();
+		return thread;
 	}
 
 	public static void enable( Activity activity, int requestID ) {

@@ -18,13 +18,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.BluetoothServerActivity" android:label="@string/app_server" android:icon="@drawable/ic_server_launcher">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER"/>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-
     </application>
 
 </manifest>

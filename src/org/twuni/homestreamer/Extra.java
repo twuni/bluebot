@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 public enum Extra {
 
-	URI,
 	POSITION;
 
 	public void put( Bundle bundle, int value ) {
