@@ -3,7 +3,12 @@
 
     <style name="Widget"/>
 
-    <style name="Widget.Bluebot"/>
+    <style name="Widget.Bluebot">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    
+    <style name="Widget.Bluebot.ImageView"/>
 
     <style name="Widget.Bluebot.Layout">
         <item name="android:layout_width">fill_parent</item>
@@ -28,6 +33,7 @@
     </style>
 
     <style name="Widget.Bluebot.Layout.Linear.Horizontal">
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:orientation">horizontal</item>
     </style>
 

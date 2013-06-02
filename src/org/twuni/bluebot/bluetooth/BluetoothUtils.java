@@ -2,12 +2,13 @@ package org.twuni.bluebot.bluetooth;
 
 import java.io.IOException;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 
+import org.twuni.bluebot.R;
 import org.twuni.bluebot.bluetooth.listener.OnConnectedListener;
 import org.twuni.bluebot.bluetooth.thread.BluetoothClientThread;
 import org.twuni.bluebot.bluetooth.thread.BluetoothServerThread;
-import org.twuni.bluebot.R;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -54,6 +55,15 @@ public class BluetoothUtils {
 		if( adapter != null && !adapter.isEnabled() ) {
 			activity.startActivityForResult( new Intent( BluetoothAdapter.ACTION_REQUEST_ENABLE ), requestID );
 		}
+	}
+
+	public static Set<BluetoothDevice> getPairedDevices() {
+		Set<BluetoothDevice> devices = new TreeSet<BluetoothDevice>();
+		BluetoothAdapter adapter = getAdapter();
+		if( !isBluetoothEnabled( adapter ) ) {
+			return devices;
+		}
+		return adapter.getBondedDevices();
 	}
 
 	public static boolean isPaired( String deviceName, String deviceAddress ) {

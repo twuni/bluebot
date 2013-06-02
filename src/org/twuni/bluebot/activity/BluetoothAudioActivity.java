@@ -1,7 +1,9 @@
 package org.twuni.bluebot.activity;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,12 +115,16 @@ public class BluetoothAudioActivity extends AudioPlayerActivity {
 	}
 
 	@Override
-	protected void onActionReceived( Action action, Object... args ) {
-		super.onActionReceived( action, args );
+	protected void onActionReceived( Action action, InputStream in ) {
+		super.onActionReceived( action, in );
+		DataInputStream data = new DataInputStream( in );
 		switch( action ) {
 			case PLAY:
-				String uri = (String) args[0];
-				play( Uri.parse( uri ) );
+				try {
+					play( Uri.parse( data.readUTF() ) );
+				} catch( IOException exception ) {
+					report( exception );
+				}
 				break;
 			case PAUSE:
 				audio.pause();

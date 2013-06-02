@@ -1,15 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <org.twuni.bluebot.view.DeviceView xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/Widget.Bluebot.Layout.Linear.Vertical">
+    style="@style/Widget.Bluebot.Layout.Relative">
 
-    <TextView
-        android:id="@+id/device_name"
-        style="@style/Widget.Bluebot.TextView.Title"
-        android:text="@string/sample_device_name"/>
+    <LinearLayout
+        android:id="@+id/device_info"
+        style="@style/Widget.Bluebot.Layout.Linear.Vertical"
+        android:layout_width="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/device_extras">
 
-    <TextView
-        android:id="@+id/device_address"
-        style="@style/Widget.Bluebot.TextView"
-        android:text="@string/sample_device_address"/>
+        <TextView
+            android:id="@+id/device_name"
+            style="@style/Widget.Bluebot.TextView.Title"
+            android:text="@string/sample_device_name"/>
+
+        <TextView
+            android:id="@+id/device_address"
+            style="@style/Widget.Bluebot.TextView"
+            android:text="@string/sample_device_address"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/device_extras"
+        style="@style/Widget.Bluebot.Layout.Linear.Horizontal"
+        android:gravity="center_vertical"
+        android:layout_alignTop="@+id/device_info"
+        android:layout_alignBottom="@+id/device_info"
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            android:id="@+id/device_icon"
+            style="@style/Widget.Bluebot.ImageView"
+            android:src="@drawable/ic_hardware_unknown"
+            android:contentDescription="@string/sample_device_type"/>
+
+    </LinearLayout>
 
 </org.twuni.bluebot.view.DeviceView>

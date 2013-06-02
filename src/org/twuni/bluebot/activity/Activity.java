@@ -2,6 +2,7 @@ package org.twuni.bluebot.activity;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.twuni.bluebot.Action;
 import org.twuni.bluebot.R;
@@ -76,11 +77,7 @@ abstract class Activity extends android.app.Activity {
 											out.release();
 											break;
 										default:
-											Object [] args = new Object [action.getArgumentCount()];
-											for( int i = 0; i < args.length; i++ ) {
-												args[i] = in.readUTF();
-											}
-											onActionReceived( action, args );
+											onActionReceived( action, in );
 									}
 								}
 							} catch( IOException exception ) {
@@ -106,7 +103,7 @@ abstract class Activity extends android.app.Activity {
 
 	}
 
-	protected void onActionReceived( Action action, Object... args ) {
+	protected void onActionReceived( Action action, InputStream in ) {
 		// By default, do nothing.
 	}
 
@@ -154,6 +151,10 @@ abstract class Activity extends android.app.Activity {
 
 	}
 
+	protected void onDeviceReceived( android.bluetooth.BluetoothDevice device ) {
+		onDeviceReceived( new BluetoothDevice( device ) );
+	}
+
 	protected void onDeviceReceived( BluetoothDevice device ) {
 		// By default, do nothing.
 	}
@@ -177,7 +178,7 @@ abstract class Activity extends android.app.Activity {
 
 			@Override
 			public void onDeviceReceived( android.bluetooth.BluetoothDevice device ) {
-				getActivity().onDeviceReceived( new BluetoothDevice( device ) );
+				getActivity().onDeviceReceived( device );
 			}
 
 		};
@@ -186,6 +187,9 @@ abstract class Activity extends android.app.Activity {
 
 		if( BluetoothUtils.isBluetoothEnabled() ) {
 			listenForBluetoothConnections();
+			for( android.bluetooth.BluetoothDevice device : BluetoothUtils.getPairedDevices() ) {
+				onDeviceReceived( device );
+			}
 			BluetoothUtils.startDiscovery();
 		} else {
 			BluetoothUtils.enable( this, REQUEST_BLUETOOTH_ENABLED );
