@@ -88,7 +88,7 @@ public class BluetoothAudioActivity extends AudioPlayerActivity {
 
 								recorder.startRecording();
 								recording = true;
-								for( int size = recorder.read( buffer, 0, buffer.length ); recording && size > 0; size = recorder.read( buffer, 0, size ) ) {
+								for( int size = recorder.read( buffer, 0, buffer.length ); recording && size > 0; size = recorder.read( buffer, 0, buffer.length ) ) {
 									out.write( buffer, 0, size );
 								}
 								recorder.stop();
